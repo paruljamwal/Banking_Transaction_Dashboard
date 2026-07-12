@@ -25,7 +25,8 @@ function Navbar() {
   return (
     <header
       className={cn(
-        'sticky top-0 z-30 flex h-16 shrink-0 items-center gap-3 border-b px-4 transition-all duration-300 md:gap-4 md:px-6',
+        'sticky top-0 z-30 flex h-14 shrink-0 items-center gap-3 border-b px-4 md:px-5',
+        'transition-all duration-300',
         isScrolled
           ? 'border-border/80 bg-navbar/90 shadow-sm backdrop-blur-md'
           : 'border-border bg-navbar/95 backdrop-blur-sm',
@@ -37,13 +38,13 @@ function Navbar() {
         </IconButton>
       )}
 
-      <div className="relative hidden min-w-0 flex-1 md:block lg:max-w-md">
-        <FiSearch className="pointer-events-none absolute top-1/2 left-3.5 h-4 w-4 -translate-y-1/2 text-muted" />
+      <div className="relative hidden w-full max-w-[280px] md:block lg:max-w-[320px]">
+        <FiSearch className="pointer-events-none absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-muted" />
         <input
           type="search"
-          placeholder="Search transactions, customers..."
+          placeholder="Search..."
           className={cn(
-            'h-10 w-full rounded-2xl border border-border bg-bg/80 py-2 pr-4 pl-10 text-sm text-text',
+            'h-9 w-full rounded-xl border border-border bg-bg/80 py-2 pr-3 pl-9 text-sm text-text',
             'placeholder:text-muted transition-all duration-200',
             'focus:border-primary-500 focus:bg-surface focus:ring-2 focus:ring-primary-500/15 focus:outline-none',
           )}
@@ -51,7 +52,7 @@ function Navbar() {
         />
       </div>
 
-      <div className="flex flex-1 items-center justify-end gap-0.5 sm:gap-1 md:flex-none">
+      <div className="ml-auto flex items-center gap-0.5">
         <IconButton label="Toggle theme" onClick={toggleTheme}>
           {isDark ? (
             <FiSun className="h-[18px] w-[18px]" />

@@ -2,7 +2,6 @@ import { useState, useCallback } from 'react'
 import toast from 'react-hot-toast'
 import PageContainer from '@components/common/PageContainer'
 import PageHeader from '@components/common/PageHeader'
-import Card from '@components/common/Card'
 import Pagination from '@components/common/Pagination'
 import {
   TransactionsTable,
@@ -148,7 +147,7 @@ function TransactionsPage() {
               />
 
               {!showNoResults && totalItems > 0 && (
-                <Card padding="md" className="mt-6">
+                <div className="mt-4 rounded-2xl border border-border bg-surface px-3 py-3 sm:px-4">
                   <Pagination
                     currentPage={page}
                     totalPages={totalPages}
@@ -163,7 +162,7 @@ function TransactionsPage() {
                     showRowsPerPage
                     showPageInfo={false}
                   />
-                </Card>
+                </div>
               )}
             </>
           )}

@@ -28,7 +28,7 @@ function UserDropdown({ user }) {
         aria-expanded={isOpen}
         aria-haspopup="menu"
         className={cn(
-          'flex items-center gap-2 rounded-2xl border border-border bg-surface py-1.5 pr-2 pl-1.5',
+          'flex items-center gap-2 rounded-xl border border-border bg-surface py-1 pr-2 pl-1',
           'transition-all duration-200 hover:border-primary-200 hover:shadow-sm',
           'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500',
         )}
