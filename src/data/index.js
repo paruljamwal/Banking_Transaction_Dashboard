@@ -3,11 +3,9 @@ import mockApp from './mockApp.json'
 
 export { mockUser, mockApp }
 export {
-  mockTransactions,
-  mockTransactionMeta,
-  MOCK_TRANSACTION_COUNT,
-} from './mockTransactions'
-export {
-  generateMockTransactions,
+  transactions,
+  transactionMeta,
+  TRANSACTION_COUNT,
+  generateTransactions,
   maskAccountNumber,
-} from './generateTransactions'
+} from './transactions'

@@ -1,22 +1,34 @@
 import { TRANSACTION_TYPES } from '@constants/transactionTypes'
 import { STATUS } from '@constants/status'
 
-const ACCOUNT_HOLDERS = [
-  { name: 'Parul Jamwal', accountNumber: '482917305628' },
-  { name: 'Rahul Mehta', accountNumber: '739104582316' },
-  { name: 'Ananya Sharma', accountNumber: '605821947103' },
-  { name: 'Vikram Singh', accountNumber: '918374650289' },
-  { name: 'Priya Nair', accountNumber: '274590183647' },
-  { name: 'Arjun Kapoor', accountNumber: '853106729418' },
-  { name: 'Sneha Reddy', accountNumber: '491827305916' },
-  { name: 'Karan Malhotra', accountNumber: '628390174502' },
-  { name: 'Divya Iyer', accountNumber: '705194826317' },
-  { name: 'Rohan Desai', accountNumber: '382947105683' },
-  { name: 'Meera Joshi', accountNumber: '519283746105' },
-  { name: 'Aditya Verma', accountNumber: '847291036528' },
-  { name: 'Kaveri Technologies Pvt Ltd', accountNumber: '102938475601' },
-  { name: 'Northwind Solutions', accountNumber: '564738291045' },
-  { name: 'BluePeak Retail LLP', accountNumber: '293847561029' },
+const CUSTOMERS = [
+  { name: 'Parul Jamwal', accountNumber: '482917305628', bank: 'HDFC Bank' },
+  { name: 'Rahul Mehta', accountNumber: '739104582316', bank: 'ICICI Bank' },
+  { name: 'Ananya Sharma', accountNumber: '605821947103', bank: 'Axis Bank' },
+  { name: 'Vikram Singh', accountNumber: '918374650289', bank: 'State Bank of India' },
+  { name: 'Priya Nair', accountNumber: '274590183647', bank: 'Kotak Mahindra Bank' },
+  { name: 'Arjun Kapoor', accountNumber: '853106729418', bank: 'HDFC Bank' },
+  { name: 'Sneha Reddy', accountNumber: '491827305916', bank: 'ICICI Bank' },
+  { name: 'Karan Malhotra', accountNumber: '628390174502', bank: 'Punjab National Bank' },
+  { name: 'Divya Iyer', accountNumber: '705194826317', bank: 'Axis Bank' },
+  { name: 'Rohan Desai', accountNumber: '382947105683', bank: 'Bank of Baroda' },
+  { name: 'Meera Joshi', accountNumber: '519283746105', bank: 'HDFC Bank' },
+  { name: 'Aditya Verma', accountNumber: '847291036528', bank: 'ICICI Bank' },
+  { name: 'Kaveri Technologies Pvt Ltd', accountNumber: '102938475601', bank: 'HDFC Bank' },
+  { name: 'Northwind Solutions', accountNumber: '564738291045', bank: 'Axis Bank' },
+  { name: 'BluePeak Retail LLP', accountNumber: '293847561029', bank: 'Kotak Mahindra Bank' },
+]
+
+const BANK_NAMES = [
+  'HDFC Bank',
+  'ICICI Bank',
+  'State Bank of India',
+  'Axis Bank',
+  'Kotak Mahindra Bank',
+  'Punjab National Bank',
+  'Bank of Baroda',
+  'Yes Bank',
+  'IndusInd Bank',
 ]
 
 const PAYMENT_METHODS = [
@@ -111,7 +123,6 @@ const TYPE_WEIGHTS = [
 ]
 
 /**
- * Seeded PRNG for reproducible mock data.
  * @param {number} seed
  */
 function createSeededRandom(seed) {
@@ -160,7 +171,7 @@ export function maskAccountNumber(accountNumber) {
  * @param {() => number} random
  * @param {number} index
  */
-function generateTransactionId(random, index) {
+function buildTransactionId(random, index) {
   const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'
   let suffix = ''
 
@@ -175,7 +186,7 @@ function generateTransactionId(random, index) {
  * @param {() => number} random
  * @param {string} type
  */
-function generateAmount(random, type) {
+function buildAmount(random, type) {
   const ranges = {
     [TRANSACTION_TYPES.INCOME]: [15000, 280000],
     [TRANSACTION_TYPES.EXPENSE]: [120, 65000],
@@ -192,7 +203,7 @@ function generateAmount(random, type) {
 /**
  * @param {() => number} random
  */
-function generateDate(random) {
+function buildDate(random) {
   const end = new Date('2026-03-15T18:00:00')
   const start = new Date('2025-03-15T00:00:00')
   const timestamp =
@@ -205,12 +216,12 @@ function generateDate(random) {
  * @param {() => number} random
  * @param {string} type
  * @param {string} category
- * @param {string} accountHolder
+ * @param {string} customerName
  */
-function generateDescription(random, type, category, accountHolder) {
+function buildDescription(random, type, category, customerName) {
   const templates = {
     [TRANSACTION_TYPES.INCOME]: [
-      `${category} credited to ${accountHolder}`,
+      `${category} credited to ${customerName}`,
       `Monthly ${category.toLowerCase()} deposit`,
       `${category} payment received`,
     ],
@@ -227,7 +238,7 @@ function generateDescription(random, type, category, accountHolder) {
     [TRANSACTION_TYPES.TRANSFER]: [
       `${category} between accounts`,
       `Scheduled ${category.toLowerCase()}`,
-      `${category} initiated by account holder`,
+      `${category} initiated by customer`,
     ],
   }
 
@@ -237,40 +248,40 @@ function generateDescription(random, type, category, accountHolder) {
 /**
  * @param {() => number} random
  * @param {string} type
- * @param {{ name: string }} holder
+ * @param {{ name: string }} customer
  */
-function generateParties(random, type, holder) {
-  const externalAccount = pickRandom(random, ACCOUNT_HOLDERS)
+function buildParties(random, type, customer) {
+  const externalCustomer = pickRandom(random, CUSTOMERS)
 
   switch (type) {
     case TRANSACTION_TYPES.INCOME:
       return {
-        sender: pickRandom(random, EMPLOYERS),
-        receiver: holder.name,
+        senderName: pickRandom(random, EMPLOYERS),
+        receiverName: customer.name,
       }
     case TRANSACTION_TYPES.EXPENSE:
       return {
-        sender: holder.name,
-        receiver: pickRandom(random, MERCHANTS),
+        senderName: customer.name,
+        receiverName: pickRandom(random, MERCHANTS),
       }
     case TRANSACTION_TYPES.REFUND:
       return {
-        sender: pickRandom(random, MERCHANTS),
-        receiver: holder.name,
+        senderName: pickRandom(random, MERCHANTS),
+        receiverName: customer.name,
       }
     case TRANSACTION_TYPES.TRANSFER:
       return {
-        sender: holder.name,
-        receiver:
-          externalAccount.name === holder.name
+        senderName: customer.name,
+        receiverName:
+          externalCustomer.name === customer.name
             ? pickRandom(
                 random,
-                ACCOUNT_HOLDERS.filter((item) => item.name !== holder.name),
+                CUSTOMERS.filter((item) => item.name !== customer.name),
               ).name
-            : externalAccount.name,
+            : externalCustomer.name,
       }
     default:
-      return { sender: holder.name, receiver: holder.name }
+      return { senderName: customer.name, receiverName: customer.name }
   }
 }
 
@@ -278,30 +289,47 @@ function generateParties(random, type, holder) {
  * @param {number} [count]
  * @param {number} [seed]
  */
-export function generateMockTransactions(count = 300, seed = 20260315) {
+export function generateTransactions(count = 300, seed = 20260315) {
   const random = createSeededRandom(seed)
 
   return Array.from({ length: count }, (_, index) => {
-    const holder = pickRandom(random, ACCOUNT_HOLDERS)
+    const customer = pickRandom(random, CUSTOMERS)
     const type = pickWeighted(random, TYPE_WEIGHTS)
     const status = pickWeighted(random, STATUS_WEIGHTS)
     const category = pickRandom(random, CATEGORIES[type])
-    const { sender, receiver } = generateParties(random, type, holder)
+    const { senderName, receiverName } = buildParties(random, type, customer)
 
     return {
       id: `txn_${String(index + 1).padStart(4, '0')}`,
-      accountHolder: holder.name,
-      accountNumber: maskAccountNumber(holder.accountNumber),
-      transactionId: generateTransactionId(random, index),
-      amount: generateAmount(random, type),
+      transactionId: buildTransactionId(random, index),
+      customerName: customer.name,
+      accountNumber: maskAccountNumber(customer.accountNumber),
       transactionType: type,
       status,
+      amount: buildAmount(random, type),
       paymentMethod: pickRandom(random, PAYMENT_METHODS),
       category,
-      date: generateDate(random),
-      description: generateDescription(random, type, category, holder.name),
-      receiver,
-      sender,
+      date: buildDate(random),
+      description: buildDescription(random, type, category, customer.name),
+      receiverName,
+      senderName,
+      bankName: customer.bank || pickRandom(random, BANK_NAMES),
     }
   }).sort((a, b) => new Date(b.date) - new Date(a.date))
+}
+
+export const TRANSACTION_COUNT = 300
+
+export const transactions = generateTransactions(TRANSACTION_COUNT)
+
+export const transactionMeta = {
+  totalRecords: transactions.length,
+  generatedAt: '2026-03-15',
+  dateRange: {
+    from: '2025-03-15',
+    to: '2026-03-15',
+  },
+  customers: [...new Set(transactions.map((txn) => txn.customerName))].length,
+  banks: [...new Set(transactions.map((txn) => txn.bankName))].length,
+  currency: 'INR',
 }
