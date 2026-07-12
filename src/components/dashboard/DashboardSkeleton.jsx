@@ -1,5 +1,4 @@
 import Skeleton from '@components/common/Skeleton'
-import StatsGridSkeleton from '@components/common/StatsGridSkeleton'
 import TableSkeleton from '@components/common/TableSkeleton'
 import Card from '@components/common/Card'
 
@@ -12,9 +11,6 @@ function DashboardSkeleton() {
           <Skeleton className="h-9 w-72" />
           <Skeleton className="h-4 w-56" />
         </Card>
-      </div>
-      <div className="col-span-12">
-        <StatsGridSkeleton />
       </div>
       <div className="col-span-12 xl:col-span-8">
         <Card padding="md" className="space-y-4">

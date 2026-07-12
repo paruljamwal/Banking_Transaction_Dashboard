@@ -6,17 +6,17 @@ import Skeleton from '@components/common/Skeleton'
 const TREND_STYLES = {
   up: {
     icon: FiTrendingUp,
-    className: 'text-emerald-700 bg-emerald-50 ring-1 ring-emerald-100',
+    className: 'text-emerald-700 bg-emerald-500/10',
     label: 'Increased',
   },
   down: {
     icon: FiTrendingDown,
-    className: 'text-red-700 bg-red-50 ring-1 ring-red-100',
+    className: 'text-red-600 bg-red-500/10',
     label: 'Decreased',
   },
   neutral: {
     icon: FiMinus,
-    className: 'text-muted bg-bg ring-1 ring-border',
+    className: 'text-muted bg-bg',
     label: 'No change',
   },
 }
@@ -28,7 +28,6 @@ function StatsCard({
   trend = 'neutral',
   description,
   icon,
-  iconClassName,
   className,
   loading = false,
 }) {
@@ -36,55 +35,62 @@ function StatsCard({
   const TrendIcon = trendStyle.icon
 
   return (
-    <Card padding="md" hoverable className={cn('relative overflow-hidden', className)}>
-      <div className="flex items-start justify-between gap-4">
-        <div className="min-w-0 flex-1">
-          {loading ? (
-            <div className="space-y-3" aria-hidden="true">
-              <Skeleton className="h-4 w-28" />
-              <Skeleton className="h-9 w-32" />
-              <Skeleton className="h-5 w-24 rounded-full" />
-              <Skeleton className="h-3 w-40" />
-            </div>
-          ) : (
-            <>
-              <p className="text-sm font-medium text-text-secondary">{title}</p>
-              <p className="mt-2 text-2xl font-bold tracking-tight text-text lg:text-[1.75rem]">
-                {value}
-              </p>
-              {change && (
-                <span
-                  className={cn(
-                    'mt-3 inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-semibold',
-                    trendStyle.className,
-                  )}
-                  aria-label={`${trendStyle.label}: ${change}`}
-                >
-                  <TrendIcon className="h-3 w-3" aria-hidden="true" />
-                  {change}
-                </span>
-              )}
-              {description && (
-                <p className="mt-3 text-xs leading-relaxed text-muted">
-                  {description}
-                </p>
-              )}
-            </>
-          )}
-        </div>
-
-        {icon && !loading && (
-          <div
-            className={cn(
-              'flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-primary-50 text-primary-600 ring-1 ring-primary-100',
-              iconClassName,
-            )}
-            aria-hidden="true"
-          >
-            {icon}
+    <Card
+      padding="sm"
+      className={cn('flex h-full flex-col px-4 py-4 sm:px-5', className)}
+    >
+      {loading ? (
+        <div className="space-y-3" aria-hidden="true">
+          <div className="flex items-center justify-between gap-3">
+            <Skeleton className="h-3 w-24" />
+            <Skeleton className="h-9 w-9 rounded-lg" />
           </div>
-        )}
-      </div>
+          <Skeleton className="h-8 w-28" />
+          <Skeleton className="h-5 w-32 rounded-md" />
+          <Skeleton className="h-3 w-full" />
+        </div>
+      ) : (
+        <>
+          <div className="flex items-start justify-between gap-3">
+            <p className="text-xs font-medium tracking-wide text-muted uppercase">
+              {title}
+            </p>
+            {icon && (
+              <div
+                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-bg text-text-secondary ring-1 ring-border"
+                aria-hidden="true"
+              >
+                {icon}
+              </div>
+            )}
+          </div>
+
+          <p className="mt-3 text-2xl font-bold tracking-tight text-text tabular-nums">
+            {value}
+          </p>
+
+          {change && (
+            <div className="mt-2.5 flex min-h-[1.375rem] items-center">
+              <span
+                className={cn(
+                  'inline-flex max-w-full items-center gap-1 rounded-md px-2 py-0.5 text-[11px] font-semibold leading-none',
+                  trendStyle.className,
+                )}
+                aria-label={`${trendStyle.label}: ${change}`}
+              >
+                <TrendIcon className="h-3 w-3 shrink-0" aria-hidden="true" />
+                <span className="truncate">{change}</span>
+              </span>
+            </div>
+          )}
+
+          {description && (
+            <p className="mt-auto pt-3 text-xs leading-snug text-muted">
+              {description}
+            </p>
+          )}
+        </>
+      )}
     </Card>
   )
 }

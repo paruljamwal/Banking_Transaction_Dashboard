@@ -1,6 +1,5 @@
 import { useMemo } from 'react'
 import {
-  getDashboardStats,
   getRecentTransactions,
   getDashboardInsights,
   getActivityTimeline,
@@ -12,7 +11,6 @@ import {
 export function useDashboardData(transactions = []) {
   return useMemo(
     () => ({
-      stats: getDashboardStats(transactions),
       recentTransactions: getRecentTransactions(transactions, 5),
       insights: getDashboardInsights(transactions),
       activityTimeline: getActivityTimeline(transactions),
