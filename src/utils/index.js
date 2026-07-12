@@ -13,3 +13,7 @@ export {
 } from './filterTransactions'
 export { searchTransactions, searchTransactionsWithMatcher } from './searchTransactions'
 export { generateRandomId, generateRandomShortId } from './generateRandomId'
+export {
+  getDashboardStats,
+  getRecentTransactions,
+} from './dashboardStats'

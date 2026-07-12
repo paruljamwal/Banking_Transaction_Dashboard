@@ -1,6 +1,7 @@
 export { useDebounce } from './useDebounce'
 export { usePagination } from './usePagination'
 export { useSearch } from './useSearch'
+export { useDashboardData } from './useDashboardData'
 export { useFocusTrap } from './useFocusTrap'
 export { useIsDesktop, useMediaQuery } from './useMediaQuery'
 export { useSidebar } from './useSidebar'
