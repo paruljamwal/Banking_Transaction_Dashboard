@@ -13,3 +13,12 @@ export {
   STATUS_OPTIONS,
 } from './status'
 export { COLORS, CHART_COLORS, STATUS_COLORS } from './colors'
+export {
+  SORT_DIRECTION,
+  DEFAULT_SORT,
+  TABLE_COLUMNS,
+  SEARCHABLE_FIELDS,
+  FILTER_KEYS,
+  TABLE_EMPTY_MESSAGE,
+  TABLE_LOADING_MESSAGE,
+} from './table'

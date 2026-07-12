@@ -1,14 +1,16 @@
+import { SEARCHABLE_FIELDS } from '@constants/table'
+
 /**
- * @param {Record<string, unknown>[]} data
+ * @param {Record<string, unknown>[]} transactions
  * @param {string} query
  * @param {string[]} [fields]
  */
-export function searchData(data, query, fields = []) {
+export function searchTransactions(transactions, query, fields = SEARCHABLE_FIELDS) {
   const normalizedQuery = query.trim().toLowerCase()
 
-  if (!normalizedQuery) return [...data]
+  if (!normalizedQuery) return [...transactions]
 
-  return data.filter((item) => {
+  return transactions.filter((item) => {
     const searchFields =
       fields.length > 0
         ? fields
@@ -23,13 +25,13 @@ export function searchData(data, query, fields = []) {
 }
 
 /**
- * @param {Record<string, unknown>[]} data
+ * @param {Record<string, unknown>[]} transactions
  * @param {string} query
  * @param {(item: Record<string, unknown>, query: string) => boolean} matcher
  */
-export function searchDataWithMatcher(data, query, matcher) {
+export function searchTransactionsWithMatcher(transactions, query, matcher) {
   const normalizedQuery = query.trim().toLowerCase()
-  if (!normalizedQuery) return [...data]
+  if (!normalizedQuery) return [...transactions]
 
-  return data.filter((item) => matcher(item, normalizedQuery))
+  return transactions.filter((item) => matcher(item, normalizedQuery))
 }

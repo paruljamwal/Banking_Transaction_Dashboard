@@ -1,14 +1,14 @@
 /**
- * @param {Record<string, unknown>[]} data
+ * @param {Record<string, unknown>[]} transactions
  * @param {string} key
  * @param {'asc' | 'desc'} [direction]
  */
-export function sortData(data, key, direction = 'asc') {
-  if (!key) return [...data]
+export function sortTransactions(transactions, key, direction = 'asc') {
+  if (!key) return [...transactions]
 
   const multiplier = direction === 'desc' ? -1 : 1
 
-  return [...data].sort((a, b) => {
+  return [...transactions].sort((a, b) => {
     const valueA = a[key]
     const valueB = b[key]
 
@@ -29,13 +29,13 @@ export function sortData(data, key, direction = 'asc') {
 }
 
 /**
- * @param {Record<string, unknown>[]} data
+ * @param {Record<string, unknown>[]} transactions
  * @param {{ key: string, direction?: 'asc' | 'desc' }[]} sortConfig
  */
-export function multiSortData(data, sortConfig = []) {
-  if (!sortConfig.length) return [...data]
+export function sortTransactionsMulti(transactions, sortConfig = []) {
+  if (!sortConfig.length) return [...transactions]
 
-  return [...data].sort((a, b) => {
+  return [...transactions].sort((a, b) => {
     for (const { key, direction = 'asc' } of sortConfig) {
       const multiplier = direction === 'desc' ? -1 : 1
       const valueA = a[key]

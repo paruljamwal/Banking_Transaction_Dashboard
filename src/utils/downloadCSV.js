@@ -16,12 +16,11 @@ function escapeCsvValue(value) {
 
 /**
  * @param {Record<string, unknown>[]} data
- * @param {{ columns?: { key: string, label: string }[], filename?: string }} [options]
+ * @param {{ columns?: { key: string, label: string }[] }} [options]
+ * @returns {string}
  */
-export function exportToCsv(data, options = {}) {
-  if (!Array.isArray(data) || data.length === 0) {
-    throw new Error('exportToCsv requires a non-empty array')
-  }
+export function buildCsvString(data, options = {}) {
+  if (!Array.isArray(data) || data.length === 0) return ''
 
   const columns =
     options.columns ||
@@ -32,7 +31,19 @@ export function exportToCsv(data, options = {}) {
     columns.map((col) => escapeCsvValue(row[col.key])).join(','),
   )
 
-  const csvContent = [header, ...rows].join('\n')
+  return [header, ...rows].join('\n')
+}
+
+/**
+ * @param {Record<string, unknown>[]} data
+ * @param {{ columns?: { key: string, label: string }[], filename?: string }} [options]
+ */
+export function downloadCSV(data, options = {}) {
+  if (!Array.isArray(data) || data.length === 0) {
+    throw new Error('downloadCSV requires a non-empty array')
+  }
+
+  const csvContent = buildCsvString(data, options)
   const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' })
   const url = URL.createObjectURL(blob)
 
@@ -46,24 +57,4 @@ export function exportToCsv(data, options = {}) {
   document.body.removeChild(link)
 
   URL.revokeObjectURL(url)
-}
-
-/**
- * @param {Record<string, unknown>[]} data
- * @param {{ columns?: { key: string, label: string }[] }} [options]
- * @returns {string}
- */
-export function convertToCsvString(data, options = {}) {
-  if (!Array.isArray(data) || data.length === 0) return ''
-
-  const columns =
-    options.columns ||
-    Object.keys(data[0]).map((key) => ({ key, label: key }))
-
-  const header = columns.map((col) => escapeCsvValue(col.label)).join(',')
-  const rows = data.map((row) =>
-    columns.map((col) => escapeCsvValue(row[col.key])).join(','),
-  )
-
-  return [header, ...rows].join('\n')
 }
