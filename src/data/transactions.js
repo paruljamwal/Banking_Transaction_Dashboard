@@ -298,6 +298,10 @@ export function generateTransactions(count = 300, seed = 20260315) {
     const status = pickWeighted(random, STATUS_WEIGHTS)
     const category = pickRandom(random, CATEGORIES[type])
     const { senderName, receiverName } = buildParties(random, type, customer)
+    const date = buildDate(random)
+    const createdTime = new Date(
+      new Date(date).getTime() + Math.floor(random() * 45 * 60 * 1000),
+    ).toISOString()
 
     return {
       id: `txn_${String(index + 1).padStart(4, '0')}`,
@@ -309,7 +313,8 @@ export function generateTransactions(count = 300, seed = 20260315) {
       amount: buildAmount(random, type),
       paymentMethod: pickRandom(random, PAYMENT_METHODS),
       category,
-      date: buildDate(random),
+      date,
+      createdTime,
       description: buildDescription(random, type, category, customer.name),
       receiverName,
       senderName,

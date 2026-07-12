@@ -17,6 +17,7 @@ function TransactionsTable({
   searchQuery = '',
   showNoResults = false,
   noResultsMessage,
+  onViewDetails,
 }) {
   if (showNoResults) {
     return (
@@ -137,6 +138,7 @@ function TransactionsTable({
                     size="sm"
                     aria-label={`View details for ${txn.transactionId}`}
                     leftIcon={<FiEye className="h-4 w-4" />}
+                    onClick={() => onViewDetails?.(txn)}
                   >
                     <span className="hidden xl:inline">View Details</span>
                     <span className="xl:hidden">View</span>

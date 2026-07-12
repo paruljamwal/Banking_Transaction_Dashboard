@@ -1,9 +1,14 @@
+import { useState, useCallback } from 'react'
 import PageContainer from '@components/common/PageContainer'
 import PageHeader from '@components/common/PageHeader'
 import SearchBar from '@components/common/SearchBar'
 import Card from '@components/common/Card'
 import Pagination from '@components/common/Pagination'
-import { TransactionsTable, TransactionFilters } from '@components/transactions'
+import {
+  TransactionsTable,
+  TransactionFilters,
+  TransactionDetailsModal,
+} from '@components/transactions'
 import { transactions } from '@data/transactions'
 import { TRANSACTION_SEARCH_FIELDS } from '@constants/transactionSearch'
 import { useSearch } from '@hooks/useSearch'
@@ -11,6 +16,19 @@ import { useTransactionFilters } from '@hooks/useTransactionFilters'
 import { usePagination } from '@hooks/usePagination'
 
 function TransactionsPage() {
+  const [selectedTransaction, setSelectedTransaction] = useState(null)
+  const [isDetailsOpen, setIsDetailsOpen] = useState(false)
+
+  const handleViewDetails = useCallback((transaction) => {
+    setSelectedTransaction(transaction)
+    setIsDetailsOpen(true)
+  }, [])
+
+  const handleCloseDetails = useCallback(() => {
+    setIsDetailsOpen(false)
+    setSelectedTransaction(null)
+  }, [])
+
   const {
     draftFilters,
     filteredTransactions,
@@ -102,6 +120,13 @@ function TransactionsPage() {
               ? `No transactions match "${query}". Try a different search term.`
               : 'No transactions match the applied filters. Try adjusting your filters.'
           }
+          onViewDetails={handleViewDetails}
+        />
+
+        <TransactionDetailsModal
+          transaction={selectedTransaction}
+          isOpen={isDetailsOpen}
+          onClose={handleCloseDetails}
         />
 
         {!showNoResults && totalItems > 0 && (

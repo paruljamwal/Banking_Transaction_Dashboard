@@ -39,7 +39,7 @@ function Modal({
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <button
         type="button"
-        className="absolute inset-0 bg-overlay"
+        className="absolute inset-0 bg-overlay animate-modal-overlay"
         aria-label="Close modal"
         onClick={closeOnOverlay ? onClose : undefined}
         tabIndex={-1}
@@ -53,7 +53,7 @@ function Modal({
         aria-describedby={description ? descriptionId : undefined}
         className={cn(
           'relative z-10 w-full rounded-xl border border-border bg-surface shadow-lg',
-          'max-h-[calc(100vh-2rem)] overflow-y-auto',
+          'max-h-[calc(100vh-2rem)] overflow-y-auto animate-modal-panel',
           MODAL_SIZES[size],
           className,
         )}
