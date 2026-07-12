@@ -1,8 +1,10 @@
-import { FiEye } from 'react-icons/fi'
+import { FiEye, FiSearch } from 'react-icons/fi'
 import Card from '@components/common/Card'
 import Table from '@components/common/Table'
 import Badge from '@components/common/Badge'
 import Button from '@components/common/Button'
+import EmptyState from '@components/common/EmptyState'
+import HighlightText from '@components/common/HighlightText'
 import { TRANSACTION_TYPE_LABELS } from '@constants/transactionTypes'
 import { STATUS_LABELS, STATUS_VARIANTS } from '@constants/status'
 import { formatCurrency } from '@utils/formatCurrency'
@@ -10,7 +12,19 @@ import { formatDate } from '@utils/formatDate'
 import { getAmountColorClass } from '@utils/transactionDisplay'
 import { cn } from '@utils/cn'
 
-function TransactionsTable({ transactions }) {
+function TransactionsTable({ transactions, searchQuery = '', showNoResults = false }) {
+  if (showNoResults) {
+    return (
+      <Card padding="md">
+        <EmptyState
+          icon={<FiSearch className="h-6 w-6" />}
+          title="No Results Found"
+          description={`No transactions match "${searchQuery}". Try a different search term.`}
+        />
+      </Card>
+    )
+  }
+
   return (
     <Card padding="none" className="overflow-hidden">
       <Table scrollable maxHeight="max-h-[calc(100vh-12rem)]">
@@ -45,19 +59,27 @@ function TransactionsTable({ transactions }) {
                 )}
               >
                 <Table.Cell>
-                  <span className="whitespace-nowrap font-medium text-text">
-                    {txn.transactionId}
-                  </span>
+                  <HighlightText
+                    text={txn.transactionId}
+                    query={searchQuery}
+                    className="whitespace-nowrap font-medium text-text"
+                  />
                 </Table.Cell>
 
                 <Table.Cell>
-                  <span className="font-medium text-text">{txn.customerName}</span>
+                  <HighlightText
+                    text={txn.customerName}
+                    query={searchQuery}
+                    className="font-medium text-text"
+                  />
                 </Table.Cell>
 
                 <Table.Cell className="hidden sm:table-cell">
-                  <span className="font-mono text-xs text-text-secondary">
-                    {txn.accountNumber}
-                  </span>
+                  <HighlightText
+                    text={txn.accountNumber}
+                    query={searchQuery}
+                    className="font-mono text-xs text-text-secondary"
+                  />
                 </Table.Cell>
 
                 <Table.Cell>
@@ -67,7 +89,11 @@ function TransactionsTable({ transactions }) {
                 </Table.Cell>
 
                 <Table.Cell className="hidden md:table-cell">
-                  <span className="text-text-secondary">{txn.paymentMethod}</span>
+                  <HighlightText
+                    text={txn.paymentMethod}
+                    query={searchQuery}
+                    className="text-text-secondary"
+                  />
                 </Table.Cell>
 
                 <Table.Cell align="right">

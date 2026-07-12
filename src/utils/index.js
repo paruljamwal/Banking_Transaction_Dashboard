@@ -14,6 +14,7 @@ export {
 export { searchTransactions, searchTransactionsWithMatcher } from './searchTransactions'
 export { generateRandomId, generateRandomShortId } from './generateRandomId'
 export { getAmountColorClass } from './transactionDisplay'
+export { getHighlightedParts, isQueryMatch } from './highlightText'
 export {
   getDashboardStats,
   getRecentTransactions,

@@ -22,3 +22,4 @@ export {
   TABLE_EMPTY_MESSAGE,
   TABLE_LOADING_MESSAGE,
 } from './table'
+export { TRANSACTION_SEARCH_FIELDS } from './transactionSearch'
