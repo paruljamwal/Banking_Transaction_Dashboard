@@ -39,14 +39,6 @@ export function filterTransactions(transactions, filters = {}) {
 
       const itemValue = item[key]
 
-      if (Array.isArray(filterValue)) {
-        return filterValue.length === 0 || filterValue.includes(itemValue)
-      }
-
-      if (typeof filterValue === 'function') {
-        return filterValue(itemValue, item)
-      }
-
       if (typeof itemValue === 'string' && typeof filterValue === 'string') {
         return itemValue.toLowerCase() === filterValue.toLowerCase()
       }
@@ -54,30 +46,4 @@ export function filterTransactions(transactions, filters = {}) {
       return itemValue === filterValue
     }),
   )
-}
-
-/**
- * @param {Record<string, unknown>[]} transactions
- * @param {string} field
- * @param {unknown[]} values
- */
-export function filterTransactionsByValues(transactions, field, values = []) {
-  if (!values.length) return [...transactions]
-  return transactions.filter((item) => values.includes(item[field]))
-}
-
-/**
- * @param {Record<string, unknown>[]} transactions
- * @param {string} field
- * @param {number} min
- * @param {number} max
- */
-export function filterTransactionsByRange(transactions, field, min, max) {
-  return transactions.filter((item) => {
-    const value = Number(item[field])
-    if (Number.isNaN(value)) return false
-    if (min !== undefined && min !== null && value < min) return false
-    if (max !== undefined && max !== null && value > max) return false
-    return true
-  })
 }

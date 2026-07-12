@@ -12,16 +12,8 @@ export {
 export { debounce } from './debounce'
 export { paginateData } from './paginateData'
 export { sortTransactions, sortTransactionsMulti } from './sortTransactions'
-export {
-  filterTransactions,
-  filterTransactionsByValues,
-  filterTransactionsByRange,
-} from './filterTransactions'
-export {
-  mapFormToFilterPayload,
-  getActiveFilterChips,
-  hasActiveFilters,
-} from './filterHelpers'
+export { filterTransactions } from './filterTransactions'
+export { mapFormToFilterPayload, hasActiveFilters } from './filterHelpers'
 export { searchTransactions, searchTransactionsWithMatcher } from './searchTransactions'
 export { generateRandomId, generateRandomShortId } from './generateRandomId'
 export { getAmountColorClass } from './transactionDisplay'

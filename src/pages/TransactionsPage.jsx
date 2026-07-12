@@ -6,7 +6,6 @@ import Card from '@components/common/Card'
 import Pagination from '@components/common/Pagination'
 import {
   TransactionsTable,
-  TransactionFilters,
   TransactionDetailsModal,
   TransactionsToolbar,
   TransactionsSkeleton,
@@ -21,7 +20,6 @@ import { exportTransactionsToCsv } from '@utils/csvExport'
 
 function TransactionsPage() {
   const isLoading = usePageSkeleton()
-  const [filtersOpen, setFiltersOpen] = useState(true)
   const [selectedTransaction, setSelectedTransaction] = useState(null)
   const [isDetailsOpen, setIsDetailsOpen] = useState(false)
 
@@ -36,14 +34,11 @@ function TransactionsPage() {
   }, [])
 
   const {
-    draftFilters,
+    filters,
     filteredTransactions,
-    activeChips,
     isFiltered,
-    updateDraftFilter,
-    applyFilters,
+    updateFilter,
     resetFilters,
-    removeFilter,
     filteredCount,
   } = useTransactionFilters(transactions)
 
@@ -124,29 +119,12 @@ function TransactionsPage() {
                 query={query}
                 onQueryChange={(e) => setQuery(e.target.value)}
                 onClearSearch={clearSearch}
-                filtersOpen={filtersOpen}
-                onToggleFilters={() => setFiltersOpen((prev) => !prev)}
+                filters={filters}
+                onFilterChange={updateFilter}
+                onResetFilters={resetFilters}
                 onExport={handleExportCsv}
                 exportDisabled={results.length === 0}
-                pageSize={pageSize}
-                onPageSizeChange={setPageSize}
               />
-
-              {filtersOpen && (
-                <div className="mt-6">
-                  <TransactionFilters
-                    filters={draftFilters}
-                    activeChips={activeChips}
-                    filteredCount={filteredCount}
-                    totalCount={transactions.length}
-                    isFiltered={isFiltered}
-                    onFilterChange={updateDraftFilter}
-                    onApply={applyFilters}
-                    onReset={resetFilters}
-                    onRemoveChip={removeFilter}
-                  />
-                </div>
-              )}
 
               <div className="mt-6">
                 <TransactionsTable
@@ -177,10 +155,12 @@ function TransactionsPage() {
                     onPageChange={setPage}
                     totalItems={totalItems}
                     pageSize={pageSize}
+                    onPageSizeChange={setPageSize}
                     startIndex={startIndex}
                     endIndex={endIndex}
                     showRangeInfo
                     showGoToPage
+                    showRowsPerPage
                     showPageInfo={false}
                   />
                 </Card>

@@ -35,9 +35,6 @@ export const SEARCHABLE_FIELDS = [
 
 export const FILTER_KEYS = {
   TYPE: 'transactionType',
-  STATUS: 'status',
-  PAYMENT_METHOD: 'paymentMethod',
-  CATEGORY: 'category',
   DATE_FROM: 'dateFrom',
   DATE_TO: 'dateTo',
   AMOUNT_MIN: 'amountMin',
