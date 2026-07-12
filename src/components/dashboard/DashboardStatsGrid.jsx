@@ -13,26 +13,34 @@ function DashboardStatsGrid({ stats }) {
       <StatsCard
         title="Total Transactions"
         value={stats.totalTransactions.toLocaleString('en-IN')}
+        change={`${stats.totalChange} vs last month`}
+        trend={stats.totalTrend}
         icon={<FiActivity className="h-5 w-5" />}
       />
 
       <StatsCard
-        title="Income"
-        value={formatCompactCurrency(stats.income)}
+        title="Total Income"
+        value={formatCompactCurrency(stats.totalIncome)}
+        change={`${stats.incomeChange} vs last month`}
+        trend={stats.incomeTrend}
         icon={<FiArrowDownLeft className="h-5 w-5" />}
-        footer={formatCurrency(stats.income)}
+        footer={formatCurrency(stats.totalIncome)}
       />
 
       <StatsCard
-        title="Expense"
-        value={formatCompactCurrency(stats.expense)}
+        title="Total Expenses"
+        value={formatCompactCurrency(stats.totalExpenses)}
+        change={`${stats.expenseChange} vs last month`}
+        trend={stats.expenseTrend}
         icon={<FiArrowUpRight className="h-5 w-5" />}
-        footer={formatCurrency(stats.expense)}
+        footer={formatCurrency(stats.totalExpenses)}
       />
 
       <StatsCard
-        title="Pending"
-        value={stats.pending.toLocaleString('en-IN')}
+        title="Pending Transactions"
+        value={stats.pendingTransactions.toLocaleString('en-IN')}
+        change={`${stats.pendingChange} vs last month`}
+        trend={stats.pendingTrend}
         icon={<FiClock className="h-5 w-5" />}
         footer="Awaiting clearance"
       />

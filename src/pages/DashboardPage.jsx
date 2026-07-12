@@ -1,10 +1,11 @@
 import PageContainer from '@components/common/PageContainer'
 import {
-  DashboardTopBar,
+  DashboardHeader,
   DashboardStatsGrid,
   DashboardRecentTransactions,
 } from '@components/dashboard'
 import { transactions } from '@data/transactions'
+import mockUser from '@data/mockUser.json'
 import { useDashboardData } from '@hooks/useDashboardData'
 
 function DashboardPage() {
@@ -12,7 +13,7 @@ function DashboardPage() {
 
   return (
     <PageContainer>
-      <DashboardTopBar />
+      <DashboardHeader userName={mockUser.user.name} />
 
       <div className="space-y-6">
         <DashboardStatsGrid stats={stats} />
