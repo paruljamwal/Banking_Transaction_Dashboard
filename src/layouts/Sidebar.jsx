@@ -70,7 +70,7 @@ function Sidebar() {
       >
         <div
           className={cn(
-            'flex h-16 items-center border-b border-sidebar-border px-4',
+            'flex h-16 shrink-0 items-center border-b border-sidebar-border px-4',
             isCollapsed && 'justify-center px-2',
           )}
         >

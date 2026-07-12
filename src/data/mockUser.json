@@ -1,9 +1,9 @@
 {
   "user": {
     "id": "usr_001",
-    "name": "Parul Jamwal",
-    "email": "parul@kaveritech.com",
-    "role": "Operations Manager",
+    "name": "Demo User",
+    "email": "demo@kaveritech.com",
+    "role": "Ops Manager",
     "avatar": null,
     "department": "Banking Operations"
   },

@@ -2,7 +2,7 @@ import { TRANSACTION_TYPES } from '@constants/transactionTypes'
 import { STATUS } from '@constants/status'
 
 const CUSTOMERS = [
-  { name: 'Parul Jamwal', accountNumber: '482917305628', bank: 'HDFC Bank' },
+  { name: 'Neha Patel', accountNumber: '482917305628', bank: 'HDFC Bank' },
   { name: 'Rahul Mehta', accountNumber: '739104582316', bank: 'ICICI Bank' },
   { name: 'Ananya Sharma', accountNumber: '605821947103', bank: 'Axis Bank' },
   { name: 'Vikram Singh', accountNumber: '918374650289', bank: 'State Bank of India' },
