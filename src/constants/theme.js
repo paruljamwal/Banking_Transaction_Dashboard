@@ -1,6 +1,7 @@
 export const THEME = {
   LIGHT: 'light',
   DARK: 'dark',
+  DEFAULT: 'dark',
   STORAGE_KEY: 'kaveri-theme',
 }
 

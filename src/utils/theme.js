@@ -9,7 +9,7 @@ export function getInitialTheme() {
     return stored
   }
 
-  return THEME.LIGHT
+  return THEME.DEFAULT
 }
 
 /**
