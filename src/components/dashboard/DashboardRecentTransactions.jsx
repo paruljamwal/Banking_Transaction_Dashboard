@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { format, parseISO } from 'date-fns'
-import { FiArrowRight, FiEye, FiInbox } from 'react-icons/fi'
+import { FiArrowRight, FiInbox } from 'react-icons/fi'
 import Card from '@components/common/Card'
 import Badge from '@components/common/Badge'
 import Button from '@components/common/Button'
@@ -13,26 +13,20 @@ import { formatCurrency } from '@utils/formatCurrency'
 import { getAmountColorClass } from '@utils/transactionDisplay'
 import { cn } from '@utils/cn'
 
-function DashboardRecentTransactions({
-  transactions,
-  loading = false,
-  onViewDetails,
-}) {
+function DashboardRecentTransactions({ transactions, loading = false }) {
   if (loading) {
     return <TableSkeleton rows={5} columns={5} />
   }
 
   return (
     <Card padding="none" className="overflow-hidden">
-      <div className="flex flex-col gap-4 border-b border-border px-6 py-5 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <h3 className="text-lg font-semibold tracking-tight text-text">
-            Recent Transactions
-          </h3>
-          <p className="mt-1 text-sm text-text-secondary">
-            Latest five transactions across all accounts
-          </p>
-        </div>
+      <div className="border-b border-border px-6 py-5">
+        <h3 className="text-lg font-semibold tracking-tight text-text">
+          Recent Transactions
+        </h3>
+        <p className="mt-1 text-sm text-text-secondary">
+          Latest five transactions across all accounts
+        </p>
       </div>
 
       {transactions.length === 0 ? (
@@ -42,11 +36,6 @@ function DashboardRecentTransactions({
           icon={<FiInbox className="h-6 w-6" />}
           title="No Recent Transactions"
           description="Transactions will appear here once activity is recorded."
-          action={
-            <Link to={ROUTES.TRANSACTIONS}>
-              <Button variant="primary">View All Transactions</Button>
-            </Link>
-          }
         />
       ) : (
         <>
@@ -54,10 +43,7 @@ function DashboardRecentTransactions({
             {transactions.map((txn) => (
               <div
                 key={txn.id}
-                className={cn(
-                  'flex flex-col gap-3 px-6 py-4 transition-all duration-200 sm:flex-row sm:items-center sm:justify-between',
-                  'hover:bg-primary-50/30',
-                )}
+                className="flex flex-col gap-3 px-6 py-4 sm:flex-row sm:items-center sm:justify-between"
               >
                 <div className="flex min-w-0 items-center gap-3">
                   <Avatar name={txn.customerName} size="md" />
@@ -87,15 +73,6 @@ function DashboardRecentTransactions({
                   >
                     {STATUS_LABELS[txn.status]}
                   </Badge>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    leftIcon={<FiEye className="h-4 w-4" />}
-                    onClick={() => onViewDetails?.(txn)}
-                    className="rounded-xl"
-                  >
-                    View
-                  </Button>
                 </div>
               </div>
             ))}

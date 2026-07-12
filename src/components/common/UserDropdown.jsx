@@ -1,8 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import { FiChevronDown, FiUser, FiSettings, FiLogOut } from 'react-icons/fi'
+import { FiChevronDown } from 'react-icons/fi'
 import Avatar, { getInitials } from '@components/common/Avatar'
-import { ROUTES } from '@constants/routes'
 import { cn } from '@utils/cn'
 
 function UserDropdown({ user }) {
@@ -55,41 +53,11 @@ function UserDropdown({ user }) {
       {isOpen && (
         <div
           role="menu"
-          className="absolute top-full right-0 z-50 mt-2 w-56 overflow-hidden rounded-2xl border border-border bg-surface shadow-lg"
+          className="absolute top-full right-0 z-50 mt-2 w-56 overflow-hidden rounded-2xl border border-border bg-surface px-4 py-3 shadow-lg"
         >
-          <div className="border-b border-border px-4 py-3">
-            <p className="text-sm font-semibold text-text">{user.name}</p>
-            <p className="text-xs text-text-secondary">{user.email}</p>
-          </div>
-          <div className="p-1.5">
-            <button
-              type="button"
-              role="menuitem"
-              className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-sm text-text-secondary transition-colors hover:bg-bg hover:text-text"
-              onClick={() => setIsOpen(false)}
-            >
-              <FiUser className="h-4 w-4" />
-              Profile
-            </button>
-            <Link
-              to={ROUTES.SETTINGS}
-              role="menuitem"
-              className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-sm text-text-secondary transition-colors hover:bg-bg hover:text-text"
-              onClick={() => setIsOpen(false)}
-            >
-              <FiSettings className="h-4 w-4" />
-              Settings
-            </Link>
-            <button
-              type="button"
-              role="menuitem"
-              className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-sm text-red-600 transition-colors hover:bg-red-50"
-              onClick={() => setIsOpen(false)}
-            >
-              <FiLogOut className="h-4 w-4" />
-              Sign out
-            </button>
-          </div>
+          <p className="text-sm font-semibold text-text">{user.name}</p>
+          <p className="mt-0.5 text-xs text-text-secondary">{user.email}</p>
+          <p className="mt-1 text-xs text-muted">{user.role}</p>
         </div>
       )}
     </div>

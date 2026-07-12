@@ -87,10 +87,6 @@ function TransactionsPage() {
     }
   }, [results])
 
-  const handleRefresh = useCallback(() => {
-    toast.success('Transactions refreshed')
-  }, [])
-
   const handleClearFilters = useCallback(() => {
     resetFilters()
     clearSearch()
@@ -131,7 +127,6 @@ function TransactionsPage() {
                 filtersOpen={filtersOpen}
                 onToggleFilters={() => setFiltersOpen((prev) => !prev)}
                 onExport={handleExportCsv}
-                onRefresh={handleRefresh}
                 exportDisabled={results.length === 0}
                 pageSize={pageSize}
                 onPageSizeChange={setPageSize}

@@ -1,5 +1,3 @@
-import { useState } from 'react'
-import { FiDownload } from 'react-icons/fi'
 import Modal from '@components/common/Modal'
 import Button from '@components/common/Button'
 import Badge from '@components/common/Badge'
@@ -22,50 +20,19 @@ function DetailField({ label, children, className }) {
 }
 
 function TransactionDetailsModal({ transaction, isOpen, onClose }) {
-  const [receiptStatus, setReceiptStatus] = useState('idle')
-
   if (!transaction) return null
-
-  const handleDownloadReceipt = () => {
-    setReceiptStatus('downloading')
-
-    window.setTimeout(() => {
-      setReceiptStatus('done')
-      window.setTimeout(() => setReceiptStatus('idle'), 2000)
-    }, 800)
-  }
-
-  const handleClose = () => {
-    setReceiptStatus('idle')
-    onClose()
-  }
 
   return (
     <Modal
       isOpen={isOpen}
-      onClose={handleClose}
+      onClose={onClose}
       title="Transaction Details"
       description={transaction.transactionId}
       size="lg"
       footer={
-        <>
-          {receiptStatus === 'done' && (
-            <p className="mr-auto text-sm text-emerald-600">
-              Receipt downloaded successfully
-            </p>
-          )}
-          <Button variant="ghost" onClick={handleClose}>
-            Close
-          </Button>
-          <Button
-            variant="primary"
-            leftIcon={<FiDownload className="h-4 w-4" />}
-            loading={receiptStatus === 'downloading'}
-            onClick={handleDownloadReceipt}
-          >
-            Download Receipt
-          </Button>
-        </>
+        <Button variant="primary" onClick={onClose}>
+          Close
+        </Button>
       }
     >
       <dl className="grid grid-cols-1 gap-x-6 gap-y-5 sm:grid-cols-2">

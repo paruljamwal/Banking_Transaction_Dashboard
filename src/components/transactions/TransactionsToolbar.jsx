@@ -1,4 +1,4 @@
-import { FiDownload, FiFilter, FiRefreshCw } from 'react-icons/fi'
+import { FiDownload, FiFilter } from 'react-icons/fi'
 import SearchBar from '@components/common/SearchBar'
 import Button from '@components/common/Button'
 import Select from '@components/common/Select'
@@ -13,7 +13,6 @@ function TransactionsToolbar({
   filtersOpen,
   onToggleFilters,
   onExport,
-  onRefresh,
   exportDisabled,
   pageSize,
   onPageSizeChange,
@@ -56,17 +55,6 @@ function TransactionsToolbar({
             className="rounded-2xl"
           >
             <span className="hidden sm:inline">Export</span>
-          </Button>
-
-          <Button
-            variant="ghost"
-            size="md"
-            leftIcon={<FiRefreshCw className="h-4 w-4" />}
-            onClick={onRefresh}
-            className="rounded-2xl"
-            aria-label="Refresh transactions"
-          >
-            <span className="hidden sm:inline">Refresh</span>
           </Button>
 
           <Select

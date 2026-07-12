@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import { format } from 'date-fns'
 import { FiMenu, FiBell, FiSun, FiMoon, FiSearch } from 'react-icons/fi'
 import IconButton from '@components/common/IconButton'
 import UserDropdown from '@components/common/UserDropdown'
@@ -13,7 +12,6 @@ function Navbar() {
   const { isDark, toggleTheme } = useTheme()
   const { notifications, user } = mockUser
   const [isScrolled, setIsScrolled] = useState(false)
-  const currentDate = format(new Date(), 'EEE, dd MMM yyyy')
 
   useEffect(() => {
     const main = document.querySelector('main')
@@ -39,27 +37,21 @@ function Navbar() {
         </IconButton>
       )}
 
-      <div className="flex min-w-0 flex-1 items-center gap-3 md:gap-4">
-        <div className="relative hidden min-w-0 flex-1 md:block lg:max-w-md">
-          <FiSearch className="pointer-events-none absolute top-1/2 left-3.5 h-4 w-4 -translate-y-1/2 text-muted" />
-          <input
-            type="search"
-            placeholder="Search transactions, customers..."
-            className={cn(
-              'h-10 w-full rounded-2xl border border-border bg-bg/80 py-2 pr-4 pl-10 text-sm text-text',
-              'placeholder:text-muted transition-all duration-200',
-              'focus:border-primary-500 focus:bg-surface focus:ring-2 focus:ring-primary-500/15 focus:outline-none',
-            )}
-            aria-label="Global search"
-          />
-        </div>
-
-        <p className="hidden shrink-0 text-xs font-medium text-text-secondary lg:block">
-          {currentDate}
-        </p>
+      <div className="relative hidden min-w-0 flex-1 md:block lg:max-w-md">
+        <FiSearch className="pointer-events-none absolute top-1/2 left-3.5 h-4 w-4 -translate-y-1/2 text-muted" />
+        <input
+          type="search"
+          placeholder="Search transactions, customers..."
+          className={cn(
+            'h-10 w-full rounded-2xl border border-border bg-bg/80 py-2 pr-4 pl-10 text-sm text-text',
+            'placeholder:text-muted transition-all duration-200',
+            'focus:border-primary-500 focus:bg-surface focus:ring-2 focus:ring-primary-500/15 focus:outline-none',
+          )}
+          aria-label="Global search"
+        />
       </div>
 
-      <div className="flex items-center gap-0.5 sm:gap-1">
+      <div className="flex flex-1 items-center justify-end gap-0.5 sm:gap-1 md:flex-none">
         <IconButton label="Toggle theme" onClick={toggleTheme}>
           {isDark ? (
             <FiSun className="h-[18px] w-[18px]" />
