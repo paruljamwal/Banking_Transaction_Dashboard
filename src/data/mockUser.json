@@ -1,0 +1,18 @@
+{
+  "user": {
+    "id": "usr_001",
+    "name": "Parul Jamwal",
+    "email": "parul@kaveritech.com",
+    "role": "Operations Manager",
+    "avatar": null,
+    "department": "Banking Operations"
+  },
+  "organization": {
+    "id": "org_001",
+    "name": "Kaveri Technologies",
+    "branch": "Head Office"
+  },
+  "notifications": {
+    "unreadCount": 3
+  }
+}

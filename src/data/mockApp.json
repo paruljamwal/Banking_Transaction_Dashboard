@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "version": "1.0.0",
+    "lastUpdated": "2026-03-15",
+    "description": "Placeholder mock data for future banking modules"
+  },
+  "modules": {
+    "dashboard": { "status": "pending", "recordCount": 0 },
+    "transactions": { "status": "pending", "recordCount": 0 },
+    "reports": { "status": "pending", "recordCount": 0 }
+  }
+}
