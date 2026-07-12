@@ -1,7 +1,10 @@
 import { useState, useCallback } from 'react'
+import { FiDownload } from 'react-icons/fi'
+import toast from 'react-hot-toast'
 import PageContainer from '@components/common/PageContainer'
 import PageHeader from '@components/common/PageHeader'
 import SearchBar from '@components/common/SearchBar'
+import Button from '@components/common/Button'
 import Card from '@components/common/Card'
 import Pagination from '@components/common/Pagination'
 import {
@@ -14,6 +17,7 @@ import { TRANSACTION_SEARCH_FIELDS } from '@constants/transactionSearch'
 import { useSearch } from '@hooks/useSearch'
 import { useTransactionFilters } from '@hooks/useTransactionFilters'
 import { usePagination } from '@hooks/usePagination'
+import { exportTransactionsToCsv } from '@utils/csvExport'
 
 function TransactionsPage() {
   const [selectedTransaction, setSelectedTransaction] = useState(null)
@@ -67,6 +71,20 @@ function TransactionsPage() {
 
   const showNoResults = (hasQuery || isFiltered) && !hasResults
 
+  const handleExportCsv = useCallback(() => {
+    if (results.length === 0) {
+      toast.error('No transactions to export')
+      return
+    }
+
+    try {
+      const { filename, rowCount } = exportTransactionsToCsv(results)
+      toast.success(`Downloaded ${filename} (${rowCount} records)`)
+    } catch {
+      toast.error('Failed to export CSV')
+    }
+  }, [results])
+
   const description = (() => {
     const parts = []
 
@@ -88,14 +106,26 @@ function TransactionsPage() {
   return (
     <PageContainer>
       <PageHeader title="Transactions" description={description}>
-        <SearchBar
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          onClear={clearSearch}
-          placeholder="Search by customer, ID, account, payment method..."
-          className="w-full sm:w-80"
-          ariaLabel="Search transactions"
-        />
+        <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:items-center">
+          <Button
+            variant="secondary"
+            size="md"
+            leftIcon={<FiDownload className="h-4 w-4" />}
+            onClick={handleExportCsv}
+            disabled={results.length === 0}
+          >
+            <span className="hidden sm:inline">Export CSV</span>
+            <span className="sm:hidden">Export</span>
+          </Button>
+          <SearchBar
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            onClear={clearSearch}
+            placeholder="Search by customer, ID, account, payment method..."
+            className="w-full sm:w-80"
+            ariaLabel="Search transactions"
+          />
+        </div>
       </PageHeader>
 
       <div className="space-y-4">

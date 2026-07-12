@@ -3,6 +3,12 @@ export { getInitialTheme, applyTheme } from './theme'
 export { formatCurrency, formatCompactCurrency } from './formatCurrency'
 export { parseDate, formatDate, formatDateTime, formatRelativeDate } from './formatDate'
 export { downloadCSV, buildCsvString } from './downloadCSV'
+export {
+  TRANSACTION_CSV_COLUMNS,
+  mapTransactionsToCsvRows,
+  getTransactionCsvFilename,
+  exportTransactionsToCsv,
+} from './csvExport'
 export { debounce } from './debounce'
 export { paginateData } from './paginateData'
 export { sortTransactions, sortTransactionsMulti } from './sortTransactions'
