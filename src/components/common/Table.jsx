@@ -16,7 +16,7 @@ function Table({
       )}
     >
       <table
-        className={cn('w-full min-w-[900px] border-collapse text-left text-sm', className)}
+        className={cn('w-full min-w-[1100px] border-collapse text-left text-sm', className)}
         {...props}
       >
         {caption && (
