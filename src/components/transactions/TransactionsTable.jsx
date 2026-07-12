@@ -12,14 +12,22 @@ import { formatDate } from '@utils/formatDate'
 import { getAmountColorClass } from '@utils/transactionDisplay'
 import { cn } from '@utils/cn'
 
-function TransactionsTable({ transactions, searchQuery = '', showNoResults = false }) {
+function TransactionsTable({
+  transactions,
+  searchQuery = '',
+  showNoResults = false,
+  noResultsMessage,
+}) {
   if (showNoResults) {
     return (
       <Card padding="md">
         <EmptyState
           icon={<FiSearch className="h-6 w-6" />}
           title="No Results Found"
-          description={`No transactions match "${searchQuery}". Try a different search term.`}
+          description={
+            noResultsMessage ||
+            `No transactions match "${searchQuery}". Try a different search term.`
+          }
         />
       </Card>
     )

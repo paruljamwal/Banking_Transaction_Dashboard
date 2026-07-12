@@ -1,3 +1,4 @@
+import { endOfDay } from 'date-fns'
 import { FILTER_KEYS } from '@constants/table'
 import { parseDate } from '@utils/formatDate'
 
@@ -25,7 +26,7 @@ export function filterTransactions(transactions, filters = {}) {
         const itemDate = parseDate(item.date)
         const toDate = parseDate(filterValue)
         if (!itemDate || !toDate) return false
-        return itemDate <= toDate
+        return itemDate <= endOfDay(toDate)
       }
 
       if (key === FILTER_KEYS.AMOUNT_MIN) {

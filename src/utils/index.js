@@ -11,6 +11,11 @@ export {
   filterTransactionsByValues,
   filterTransactionsByRange,
 } from './filterTransactions'
+export {
+  mapFormToFilterPayload,
+  getActiveFilterChips,
+  hasActiveFilters,
+} from './filterHelpers'
 export { searchTransactions, searchTransactionsWithMatcher } from './searchTransactions'
 export { generateRandomId, generateRandomShortId } from './generateRandomId'
 export { getAmountColorClass } from './transactionDisplay'
