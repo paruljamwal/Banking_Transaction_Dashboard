@@ -1,8 +1,6 @@
 import PageContainer from '@components/common/PageContainer'
 import {
   DashboardHeader,
-  DashboardQuickInsights,
-  DashboardActivityTimeline,
   DashboardRecentTransactions,
   DashboardSkeleton,
 } from '@components/dashboard'
@@ -13,8 +11,7 @@ import { usePageSkeleton } from '@hooks/usePageSkeleton'
 
 function DashboardPage() {
   const isLoading = usePageSkeleton()
-  const { recentTransactions, insights, activityTimeline } =
-    useDashboardData(transactions)
+  const { recentTransactions } = useDashboardData(transactions)
 
   if (isLoading) {
     return (
@@ -29,16 +26,6 @@ function DashboardPage() {
       <div className="grid grid-cols-12 gap-6">
         <div className="col-span-12">
           <DashboardHeader userName={mockUser.user.name} />
-        </div>
-
-        <div className="col-span-12 grid gap-4 xl:grid-cols-12 xl:items-stretch">
-          <div className="xl:col-span-7">
-            <DashboardQuickInsights insights={insights} />
-          </div>
-
-          <div className="xl:col-span-5">
-            <DashboardActivityTimeline activities={activityTimeline} />
-          </div>
         </div>
 
         <div className="col-span-12">

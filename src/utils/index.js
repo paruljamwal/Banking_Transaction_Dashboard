@@ -19,8 +19,5 @@ export { generateRandomId, generateRandomShortId } from './generateRandomId'
 export { getAmountColorClass } from './transactionDisplay'
 export { getHighlightedParts, isQueryMatch } from './highlightText'
 export {
-  getDashboardStats,
   getRecentTransactions,
-  getDashboardInsights,
-  getActivityTimeline,
 } from './dashboardStats'
