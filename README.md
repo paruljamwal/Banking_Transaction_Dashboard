@@ -6,6 +6,32 @@ A modern banking transaction dashboard built with React and Vite. It provides a 
 ![Vite](https://img.shields.io/badge/Vite-8-646CFF?logo=vite&logoColor=white)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-38B2AC?logo=tailwindcss&logoColor=white)
 
+## Screenshots
+
+### Dashboard
+
+| Dark mode | Light mode |
+|-----------|------------|
+| ![Dashboard — dark theme](docs/screenshots/dashboard-dark.png) | ![Dashboard — light theme](docs/screenshots/dashboard-light.png) |
+
+### Transactions
+
+| Dark mode — table & filters | Dark mode — pagination |
+|-----------------------------|------------------------|
+| ![Transactions — dark theme](docs/screenshots/transactions-dark.png) | ![Transactions — pagination](docs/screenshots/transactions-pagination-dark.png) |
+
+| Light mode — filters | Light mode — search |
+|----------------------|-------------------|
+| ![Transactions — filtered by type](docs/screenshots/transactions-filters-light.png) | ![Transactions — search results](docs/screenshots/transactions-search-light.png) |
+
+### Transaction details
+
+![Transaction details modal](docs/screenshots/transaction-details.png)
+
+### Empty state
+
+![No results found — dark theme](docs/screenshots/empty-state-dark.png)
+
 ## Features
 
 ### Dashboard
@@ -85,21 +111,27 @@ npm run lint
 ## Project Structure
 
 ```
-src/
-├── components/
-│   ├── common/          # Shared UI (Avatar, Button, Modal, Pagination, SearchBar, etc.)
-│   ├── dashboard/       # Dashboard-specific components
-│   └── transactions/    # Table, toolbar, filters, details modal
-├── constants/           # Routes, filters, status, pagination, theme tokens
-├── context/             # Theme and sidebar providers
-├── data/
-│   ├── transactions.js  # 300 generated mock transactions
-│   └── mockUser.json    # Demo user profile
-├── hooks/               # useSearch, usePagination, useTransactionFilters, useTheme, etc.
-├── layouts/             # DashboardLayout, Sidebar, Navbar
-├── pages/               # DashboardPage, TransactionsPage, NotFoundPage
-├── styles/              # Theme CSS variables (light/dark)
-└── utils/               # Formatting, filtering, CSV export, debounce helpers
+Banking_Transaction_app/
+├── docs/
+│   └── screenshots/     # README images (dashboard.png, transactions.png, etc.)
+├── public/              # Static assets, _redirects, favicon
+├── src/
+│   ├── components/
+│   │   ├── common/      # Shared UI (Avatar, Button, Modal, Pagination, etc.)
+│   │   ├── dashboard/   # Dashboard-specific components
+│   │   └── transactions/# Table, toolbar, filters, details modal
+│   ├── constants/       # Routes, filters, status, pagination, theme tokens
+│   ├── context/         # Theme and sidebar providers
+│   ├── data/
+│   │   ├── transactions.js
+│   │   └── mockUser.json
+│   ├── hooks/           # useSearch, usePagination, useTransactionFilters, etc.
+│   ├── layouts/         # DashboardLayout, Sidebar, Navbar
+│   ├── pages/           # DashboardPage, TransactionsPage, NotFoundPage
+│   ├── styles/          # Theme CSS variables (light/dark)
+│   └── utils/           # Formatting, filtering, CSV export, debounce helpers
+├── netlify.toml
+└── vite.config.js
 ```
 
 ### Path aliases
