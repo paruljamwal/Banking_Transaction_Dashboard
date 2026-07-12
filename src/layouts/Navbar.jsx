@@ -41,7 +41,9 @@ function Navbar() {
       <div className="relative hidden w-full max-w-[280px] md:block lg:max-w-[320px]">
         <FiSearch className="pointer-events-none absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-muted" />
         <input
-          type="search"
+          type="text"
+          role="searchbox"
+          enterKeyHint="search"
           placeholder="Search..."
           className={cn(
             'h-9 w-full rounded-xl border border-border bg-bg/80 py-2 pr-3 pl-9 text-sm text-text',

@@ -28,7 +28,9 @@ function SearchBar({
       />
 
       <input
-        type="search"
+        type="text"
+        role="searchbox"
+        enterKeyHint="search"
         value={value}
         onChange={onChange}
         disabled={disabled}
