@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { FiMenu, FiSun, FiMoon, FiSearch } from 'react-icons/fi'
+import { FiMenu, FiSun, FiMoon } from 'react-icons/fi'
 import IconButton from '@components/common/IconButton'
 import UserDropdown from '@components/common/UserDropdown'
 import { useSidebarContext } from '@context/SidebarContext'
@@ -37,22 +37,6 @@ function Navbar() {
           <FiMenu className="h-5 w-5" />
         </IconButton>
       )}
-
-      <div className="relative hidden w-full max-w-[280px] md:block lg:max-w-[320px]">
-        <FiSearch className="pointer-events-none absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-muted" />
-        <input
-          type="text"
-          role="searchbox"
-          enterKeyHint="search"
-          placeholder="Search..."
-          className={cn(
-            'h-9 w-full rounded-xl border border-border bg-bg/80 py-2 pr-3 pl-9 text-sm text-text',
-            'placeholder:text-muted transition-all duration-200',
-            'focus:border-primary-500 focus:bg-surface focus:ring-2 focus:ring-primary-500/15 focus:outline-none',
-          )}
-          aria-label="Global search"
-        />
-      </div>
 
       <div className="ml-auto flex items-center gap-2">
         <IconButton
