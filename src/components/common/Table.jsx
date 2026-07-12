@@ -1,10 +1,22 @@
 import { cn } from '@utils/cn'
 
-function Table({ children, className, caption, ...props }) {
+function Table({
+  children,
+  className,
+  caption,
+  scrollable = false,
+  maxHeight = 'max-h-[calc(100vh-14rem)]',
+  ...props
+}) {
   return (
-    <div className="w-full overflow-x-auto rounded-xl border border-border">
+    <div
+      className={cn(
+        'w-full rounded-xl border border-border',
+        scrollable ? cn('overflow-auto', maxHeight) : 'overflow-x-auto',
+      )}
+    >
       <table
-        className={cn('w-full min-w-full border-collapse text-left text-sm', className)}
+        className={cn('w-full min-w-[900px] border-collapse text-left text-sm', className)}
         {...props}
       >
         {caption && (
@@ -18,9 +30,15 @@ function Table({ children, className, caption, ...props }) {
   )
 }
 
-function TableHead({ children, className }) {
+function TableHead({ children, className, sticky = false }) {
   return (
-    <thead className={cn('border-b border-border bg-bg', className)}>
+    <thead
+      className={cn(
+        'border-b border-border bg-bg',
+        sticky && 'sticky top-0 z-10 shadow-sm',
+        className,
+      )}
+    >
       {children}
     </thead>
   )

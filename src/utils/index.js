@@ -13,6 +13,7 @@ export {
 } from './filterTransactions'
 export { searchTransactions, searchTransactionsWithMatcher } from './searchTransactions'
 export { generateRandomId, generateRandomShortId } from './generateRandomId'
+export { getAmountColorClass } from './transactionDisplay'
 export {
   getDashboardStats,
   getRecentTransactions,
