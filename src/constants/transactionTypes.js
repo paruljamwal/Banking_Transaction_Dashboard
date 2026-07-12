@@ -1,19 +1,15 @@
 export const TRANSACTION_TYPES = {
-  CREDIT: 'credit',
-  DEBIT: 'debit',
-  TRANSFER: 'transfer',
-  WITHDRAWAL: 'withdrawal',
-  DEPOSIT: 'deposit',
+  INCOME: 'income',
+  EXPENSE: 'expense',
   REFUND: 'refund',
+  TRANSFER: 'transfer',
 }
 
 export const TRANSACTION_TYPE_LABELS = {
-  [TRANSACTION_TYPES.CREDIT]: 'Credit',
-  [TRANSACTION_TYPES.DEBIT]: 'Debit',
-  [TRANSACTION_TYPES.TRANSFER]: 'Transfer',
-  [TRANSACTION_TYPES.WITHDRAWAL]: 'Withdrawal',
-  [TRANSACTION_TYPES.DEPOSIT]: 'Deposit',
+  [TRANSACTION_TYPES.INCOME]: 'Income',
+  [TRANSACTION_TYPES.EXPENSE]: 'Expense',
   [TRANSACTION_TYPES.REFUND]: 'Refund',
+  [TRANSACTION_TYPES.TRANSFER]: 'Transfer',
 }
 
 export const TRANSACTION_TYPE_OPTIONS = Object.entries(TRANSACTION_TYPE_LABELS).map(
