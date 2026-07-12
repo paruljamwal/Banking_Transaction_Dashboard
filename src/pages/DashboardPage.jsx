@@ -31,12 +31,14 @@ function DashboardPage() {
           <DashboardHeader userName={mockUser.user.name} />
         </div>
 
-        <div className="col-span-12 xl:col-span-8">
-          <DashboardQuickInsights insights={insights} />
-        </div>
+        <div className="col-span-12 grid gap-4 xl:grid-cols-12 xl:items-stretch">
+          <div className="xl:col-span-7">
+            <DashboardQuickInsights insights={insights} />
+          </div>
 
-        <div className="col-span-12 xl:col-span-4">
-          <DashboardActivityTimeline activities={activityTimeline} />
+          <div className="xl:col-span-5">
+            <DashboardActivityTimeline activities={activityTimeline} />
+          </div>
         </div>
 
         <div className="col-span-12">

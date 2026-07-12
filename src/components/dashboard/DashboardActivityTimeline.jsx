@@ -18,55 +18,58 @@ const TONE_ICONS = {
 }
 
 const TONE_STYLES = {
-  primary: 'bg-primary-50 text-primary-600 ring-primary-100',
-  success: 'bg-emerald-50 text-emerald-600 ring-emerald-100',
-  danger: 'bg-red-50 text-red-600 ring-red-100',
-  neutral: 'bg-bg text-text-secondary ring-border',
-  card: 'bg-violet-50 text-violet-600 ring-violet-100',
+  primary: 'text-primary-600',
+  success: 'text-emerald-600',
+  danger: 'text-red-600',
+  neutral: 'text-text-secondary',
+  card: 'text-violet-600',
+}
+
+function SectionHeader({ title, description }) {
+  return (
+    <div className="mb-4">
+      <h3 className="text-sm font-semibold tracking-tight text-text">{title}</h3>
+      <p className="mt-0.5 text-xs text-muted">{description}</p>
+    </div>
+  )
 }
 
 function DashboardActivityTimeline({ activities = [] }) {
   return (
-    <Card padding="md" className="h-full">
-      <div className="mb-5">
-        <h3 className="text-base font-semibold tracking-tight text-text md:text-lg">
-          Activity Timeline
-        </h3>
-        <p className="mt-1 text-sm text-text-secondary">
-          Recent events across your accounts
-        </p>
-      </div>
+    <Card padding="sm" className="flex h-full flex-col px-4 py-4 sm:px-5">
+      <SectionHeader
+        title="Activity Timeline"
+        description="Recent events across accounts"
+      />
 
-      <div className="space-y-0">
-        {activities.map((activity, index) => {
+      <div className="flex-1 divide-y divide-border rounded-xl border border-border">
+        {activities.map((activity) => {
           const tone = activity.isCardEvent ? 'card' : activity.tone
           const Icon = TONE_ICONS[tone] || FiRefreshCw
           const style = TONE_STYLES[tone] || TONE_STYLES.neutral
 
           return (
-            <div key={activity.id} className="relative flex gap-3 pb-5 last:pb-0">
-              {index < activities.length - 1 && (
-                <span
-                  className="absolute top-10 left-5 h-[calc(100%-1.25rem)] w-px bg-border"
-                  aria-hidden="true"
-                />
-              )}
+            <div
+              key={activity.id}
+              className="flex items-start gap-3 px-3 py-3 transition-colors hover:bg-bg/60 sm:px-4"
+            >
               <div
                 className={cn(
-                  'relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl ring-1',
+                  'flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-bg ring-1 ring-border',
                   style,
                 )}
               >
-                <Icon className="h-[18px] w-[18px]" />
+                <Icon className="h-4 w-4" aria-hidden="true" />
               </div>
-              <div className="min-w-0 flex-1 pt-0.5">
+
+              <div className="min-w-0 flex-1">
                 <div className="flex items-start justify-between gap-2">
-                  <p className="text-sm font-semibold text-text">{activity.title}</p>
-                  <span className="shrink-0 text-xs font-medium text-muted">
+                  <p className="text-sm font-medium text-text">{activity.title}</p>
+                  <span className="shrink-0 text-[11px] font-medium text-muted">
                     {activity.time}
                   </span>
                 </div>
-                <p className="mt-0.5 text-sm text-text-secondary">
+                <p className="mt-0.5 text-xs leading-snug text-text-secondary">
                   {activity.description}
                 </p>
               </div>
