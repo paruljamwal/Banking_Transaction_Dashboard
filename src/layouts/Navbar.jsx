@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { FiMenu, FiBell, FiSun, FiMoon, FiSearch } from 'react-icons/fi'
+import { FiMenu, FiSun, FiMoon, FiSearch } from 'react-icons/fi'
 import IconButton from '@components/common/IconButton'
 import UserDropdown from '@components/common/UserDropdown'
 import { useSidebarContext } from '@context/SidebarContext'
@@ -10,7 +10,7 @@ import { cn } from '@utils/cn'
 function Navbar() {
   const { toggle, isDesktop } = useSidebarContext()
   const { isDark, toggleTheme } = useTheme()
-  const { notifications, user } = mockUser
+  const { user } = mockUser
   const [isScrolled, setIsScrolled] = useState(false)
 
   useEffect(() => {
@@ -52,17 +52,13 @@ function Navbar() {
         />
       </div>
 
-      <div className="ml-auto flex items-center gap-0.5">
+      <div className="ml-auto flex items-center gap-1.5">
         <IconButton label="Toggle theme" onClick={toggleTheme}>
           {isDark ? (
             <FiSun className="h-[18px] w-[18px]" />
           ) : (
             <FiMoon className="h-[18px] w-[18px]" />
           )}
-        </IconButton>
-
-        <IconButton label="Notifications" badge={notifications.unreadCount}>
-          <FiBell className="h-[18px] w-[18px]" />
         </IconButton>
 
         <UserDropdown user={user} />
