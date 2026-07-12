@@ -1,82 +1,78 @@
+import { useState, useEffect } from 'react'
+import { format } from 'date-fns'
 import { FiMenu, FiBell, FiSun, FiMoon, FiSearch } from 'react-icons/fi'
 import IconButton from '@components/common/IconButton'
+import UserDropdown from '@components/common/UserDropdown'
 import { useSidebarContext } from '@context/SidebarContext'
 import { useTheme } from '@hooks/useTheme'
 import mockUser from '@data/mockUser.json'
 import { cn } from '@utils/cn'
 
-function UserMenu() {
-  const { user } = mockUser
-  const initials = user.name
-    .split(' ')
-    .map((part) => part[0])
-    .join('')
-    .slice(0, 2)
-    .toUpperCase()
-
-  return (
-    <div className="flex items-center gap-3 border-l border-border pl-4">
-      <div className="hidden text-right sm:block">
-        <p className="text-sm font-medium text-text">{user.name}</p>
-        <p className="text-xs text-text-secondary">{user.role}</p>
-      </div>
-      <div
-        className="flex h-10 w-10 items-center justify-center rounded-full bg-primary-600 text-sm font-semibold text-white"
-        title={user.email}
-      >
-        {initials}
-      </div>
-    </div>
-  )
-}
-
 function Navbar() {
   const { toggle, isDesktop } = useSidebarContext()
   const { isDark, toggleTheme } = useTheme()
-  const { notifications } = mockUser
+  const { notifications, user } = mockUser
+  const [isScrolled, setIsScrolled] = useState(false)
+  const currentDate = format(new Date(), 'EEE, dd MMM yyyy')
+
+  useEffect(() => {
+    const main = document.querySelector('main')
+    if (!main) return
+
+    const handleScroll = () => setIsScrolled(main.scrollTop > 8)
+    main.addEventListener('scroll', handleScroll, { passive: true })
+    return () => main.removeEventListener('scroll', handleScroll)
+  }, [])
 
   return (
-    <header className="sticky top-0 z-30 flex h-16 shrink-0 items-center gap-4 border-b border-border bg-navbar px-4 shadow-sm md:px-6">
+    <header
+      className={cn(
+        'sticky top-0 z-30 flex h-16 shrink-0 items-center gap-3 border-b px-4 transition-all duration-300 md:gap-4 md:px-6',
+        isScrolled
+          ? 'border-border/80 bg-navbar/90 shadow-sm backdrop-blur-md'
+          : 'border-border bg-navbar/95 backdrop-blur-sm',
+      )}
+    >
       {!isDesktop && (
         <IconButton label="Open menu" onClick={toggle}>
           <FiMenu className="h-5 w-5" />
         </IconButton>
       )}
 
-      <div className="flex flex-1 items-center gap-4">
-        <div className="relative hidden max-w-md flex-1 md:block">
-          <FiSearch className="pointer-events-none absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-muted" />
+      <div className="flex min-w-0 flex-1 items-center gap-3 md:gap-4">
+        <div className="relative hidden min-w-0 flex-1 md:block lg:max-w-md">
+          <FiSearch className="pointer-events-none absolute top-1/2 left-3.5 h-4 w-4 -translate-y-1/2 text-muted" />
           <input
             type="search"
-            placeholder="Search..."
+            placeholder="Search transactions, customers..."
             className={cn(
-              'h-10 w-full rounded-lg border border-border bg-bg py-2 pr-4 pl-10 text-sm text-text',
-              'placeholder:text-muted focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 focus:outline-none',
+              'h-10 w-full rounded-2xl border border-border bg-bg/80 py-2 pr-4 pl-10 text-sm text-text',
+              'placeholder:text-muted transition-all duration-200',
+              'focus:border-primary-500 focus:bg-surface focus:ring-2 focus:ring-primary-500/15 focus:outline-none',
             )}
-            disabled
-            aria-label="Search (coming soon)"
+            aria-label="Global search"
           />
         </div>
+
+        <p className="hidden shrink-0 text-xs font-medium text-text-secondary lg:block">
+          {currentDate}
+        </p>
       </div>
 
-      <div className="flex items-center gap-1">
-        <IconButton
-          label="Toggle theme"
-          onClick={toggleTheme}
-          className="hidden sm:inline-flex"
-        >
+      <div className="flex items-center gap-0.5 sm:gap-1">
+        <IconButton label="Toggle theme" onClick={toggleTheme}>
           {isDark ? (
-            <FiSun className="h-5 w-5" />
+            <FiSun className="h-[18px] w-[18px]" />
           ) : (
-            <FiMoon className="h-5 w-5" />
+            <FiMoon className="h-[18px] w-[18px]" />
           )}
         </IconButton>
 
         <IconButton label="Notifications" badge={notifications.unreadCount}>
-          <FiBell className="h-5 w-5" />
+          <FiBell className="h-[18px] w-[18px]" />
         </IconButton>
 
-        <UserMenu />
+        <UserDropdown user={user} />
       </div>
     </header>
   )

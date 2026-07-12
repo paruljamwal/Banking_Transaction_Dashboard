@@ -1,21 +1,22 @@
 import { FiTrendingDown, FiTrendingUp, FiMinus } from 'react-icons/fi'
 import { cn } from '@utils/cn'
 import Card from '@components/common/Card'
+import Skeleton from '@components/common/Skeleton'
 
 const TREND_STYLES = {
   up: {
     icon: FiTrendingUp,
-    className: 'text-emerald-600 bg-emerald-50',
+    className: 'text-emerald-700 bg-emerald-50 ring-1 ring-emerald-100',
     label: 'Increased',
   },
   down: {
     icon: FiTrendingDown,
-    className: 'text-red-600 bg-red-50',
+    className: 'text-red-700 bg-red-50 ring-1 ring-red-100',
     label: 'Decreased',
   },
   neutral: {
     icon: FiMinus,
-    className: 'text-muted bg-bg',
+    className: 'text-muted bg-bg ring-1 ring-border',
     label: 'No change',
   },
 }
@@ -25,8 +26,9 @@ function StatsCard({
   value,
   change,
   trend = 'neutral',
+  description,
   icon,
-  footer,
+  iconClassName,
   className,
   loading = false,
 }) {
@@ -37,52 +39,52 @@ function StatsCard({
     <Card padding="md" hoverable className={cn('relative overflow-hidden', className)}>
       <div className="flex items-start justify-between gap-4">
         <div className="min-w-0 flex-1">
-          <p className="truncate text-sm font-medium text-text-secondary">
-            {title}
-          </p>
-
           {loading ? (
-            <div
-              className="mt-2 h-8 w-24 animate-pulse rounded-md bg-bg"
-              aria-hidden="true"
-            />
-          ) : (
-            <p className="mt-2 truncate text-2xl font-bold tracking-tight text-text sm:text-3xl">
-              {value}
-            </p>
-          )}
-
-          {change && !loading && (
-            <div className="mt-3 flex items-center gap-2">
-              <span
-                className={cn(
-                  'inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium',
-                  trendStyle.className,
-                )}
-                aria-label={`${trendStyle.label}: ${change}`}
-              >
-                <TrendIcon className="h-3 w-3" aria-hidden="true" />
-                {change}
-              </span>
+            <div className="space-y-3" aria-hidden="true">
+              <Skeleton className="h-4 w-28" />
+              <Skeleton className="h-9 w-32" />
+              <Skeleton className="h-5 w-24 rounded-full" />
+              <Skeleton className="h-3 w-40" />
             </div>
+          ) : (
+            <>
+              <p className="text-sm font-medium text-text-secondary">{title}</p>
+              <p className="mt-2 text-2xl font-bold tracking-tight text-text lg:text-[1.75rem]">
+                {value}
+              </p>
+              {change && (
+                <span
+                  className={cn(
+                    'mt-3 inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-semibold',
+                    trendStyle.className,
+                  )}
+                  aria-label={`${trendStyle.label}: ${change}`}
+                >
+                  <TrendIcon className="h-3 w-3" aria-hidden="true" />
+                  {change}
+                </span>
+              )}
+              {description && (
+                <p className="mt-3 text-xs leading-relaxed text-muted">
+                  {description}
+                </p>
+              )}
+            </>
           )}
         </div>
 
-        {icon && (
+        {icon && !loading && (
           <div
-            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary-50 text-primary-600"
+            className={cn(
+              'flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-primary-50 text-primary-600 ring-1 ring-primary-100',
+              iconClassName,
+            )}
             aria-hidden="true"
           >
             {icon}
           </div>
         )}
       </div>
-
-      {footer && (
-        <div className="mt-4 border-t border-border pt-4 text-xs text-muted">
-          {footer}
-        </div>
-      )}
     </Card>
   )
 }

@@ -17,9 +17,10 @@ function Card({
   return (
     <div
       className={cn(
-        'rounded-xl border border-border bg-surface shadow-sm',
+        'rounded-2xl border border-border bg-surface shadow-[var(--shadow-card)]',
         paddingStyles[padding],
-        hoverable && 'transition-shadow duration-200 hover:shadow-md',
+        hoverable &&
+          'transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-md',
         className,
       )}
       {...props}

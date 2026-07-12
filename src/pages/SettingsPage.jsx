@@ -1,5 +1,8 @@
+import { FiSettings } from 'react-icons/fi'
 import PageContainer from '@components/common/PageContainer'
 import PageHeader from '@components/common/PageHeader'
+import Card from '@components/common/Card'
+import EmptyState from '@components/common/EmptyState'
 
 function SettingsPage() {
   return (
@@ -8,14 +11,15 @@ function SettingsPage() {
         title="Settings"
         description="Configure application preferences and display options."
       />
-      <div className="rounded-xl border border-dashed border-border bg-surface p-8 text-center shadow-sm">
-        <p className="text-sm font-medium text-text-secondary">
-          Settings module coming soon
-        </p>
-        <p className="mt-2 text-xs text-muted">
-          Theme, notifications, and profile settings will be available here.
-        </p>
-      </div>
+      <Card padding="none" className="overflow-hidden">
+        <EmptyState
+          variant="empty"
+          size="lg"
+          icon={<FiSettings className="h-7 w-7" />}
+          title="Settings Coming Soon"
+          description="Theme, notifications, and profile settings will be available here."
+        />
+      </Card>
     </PageContainer>
   )
 }

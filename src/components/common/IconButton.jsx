@@ -14,7 +14,7 @@ function IconButton({
       aria-label={label}
       onClick={onClick}
       className={cn(
-        'relative inline-flex h-10 w-10 items-center justify-center rounded-lg',
+        'relative inline-flex h-10 w-10 items-center justify-center rounded-2xl',
         'text-text-secondary transition-colors duration-200',
         'hover:bg-bg hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500',
         active && 'bg-primary-50 text-primary-600',

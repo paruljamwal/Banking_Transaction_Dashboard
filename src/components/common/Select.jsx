@@ -49,7 +49,7 @@ function Select({
             [errorId, hintId].filter(Boolean).join(' ') || undefined
           }
           className={cn(
-            'w-full appearance-none rounded-lg border bg-surface pr-10 text-text transition-colors duration-200',
+            'w-full appearance-none rounded-2xl border bg-surface pr-10 text-text transition-all duration-200',
             'focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 focus:outline-none',
             'disabled:cursor-not-allowed disabled:opacity-50',
             error

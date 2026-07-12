@@ -29,4 +29,6 @@ export { getHighlightedParts, isQueryMatch } from './highlightText'
 export {
   getDashboardStats,
   getRecentTransactions,
+  getDashboardInsights,
+  getActivityTimeline,
 } from './dashboardStats'

@@ -1,5 +1,8 @@
+import { FiBarChart2 } from 'react-icons/fi'
 import PageContainer from '@components/common/PageContainer'
 import PageHeader from '@components/common/PageHeader'
+import Card from '@components/common/Card'
+import EmptyState from '@components/common/EmptyState'
 
 function ReportsPage() {
   return (
@@ -8,14 +11,15 @@ function ReportsPage() {
         title="Reports"
         description="Analytics and financial reporting."
       />
-      <div className="rounded-xl border border-dashed border-border bg-surface p-8 text-center shadow-sm">
-        <p className="text-sm font-medium text-text-secondary">
-          Reports module coming soon
-        </p>
-        <p className="mt-2 text-xs text-muted">
-          Charts and exportable reports will be implemented in a future sprint.
-        </p>
-      </div>
+      <Card padding="none" className="overflow-hidden">
+        <EmptyState
+          variant="empty"
+          size="lg"
+          icon={<FiBarChart2 className="h-7 w-7" />}
+          title="Reports Coming Soon"
+          description="Charts and exportable reports will be implemented in a future sprint."
+        />
+      </Card>
     </PageContainer>
   )
 }

@@ -35,8 +35,8 @@ function SearchBar({
         placeholder={placeholder}
         aria-label={ariaLabel}
         className={cn(
-          'w-full rounded-lg border border-border bg-surface pr-10 pl-10 text-text',
-          'placeholder:text-muted transition-colors duration-200',
+          'w-full rounded-2xl border border-border bg-surface pr-10 pl-10 text-text',
+          'placeholder:text-muted transition-all duration-200',
           'focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 focus:outline-none',
           'disabled:cursor-not-allowed disabled:opacity-50',
           UI_SIZES.input[size],

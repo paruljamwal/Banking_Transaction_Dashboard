@@ -1,3 +1,6 @@
 export { default as DashboardHeader } from './DashboardHeader'
 export { default as DashboardStatsGrid } from './DashboardStatsGrid'
 export { default as DashboardRecentTransactions } from './DashboardRecentTransactions'
+export { default as DashboardQuickInsights } from './DashboardQuickInsights'
+export { default as DashboardActivityTimeline } from './DashboardActivityTimeline'
+export { default as DashboardSkeleton } from './DashboardSkeleton'

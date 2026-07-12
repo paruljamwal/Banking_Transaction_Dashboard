@@ -50,20 +50,22 @@ function TransactionFilters({
   onRemoveChip,
 }) {
   return (
-    <Card padding="md" className="space-y-4">
+    <Card padding="md" className="space-y-4 md:space-y-5">
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-center gap-2">
           <FiFilter className="h-4 w-4 text-primary-600" aria-hidden="true" />
-          <h3 className="text-sm font-semibold text-text">Filters</h3>
+          <h3 className="text-sm font-semibold tracking-tight text-text md:text-base">
+            Filters
+          </h3>
         </div>
-        <p className="text-xs text-text-secondary">
+        <p className="text-xs text-text-secondary md:text-sm">
           {isFiltered
             ? `${filteredCount} of ${totalCount} records`
             : `${totalCount} records`}
         </p>
       </div>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:gap-5">
         <Input
           label="Date From"
           type="date"
