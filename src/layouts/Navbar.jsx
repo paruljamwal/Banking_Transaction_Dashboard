@@ -10,7 +10,7 @@ import { cn } from '@utils/cn'
 function Navbar() {
   const { toggle, isDesktop } = useSidebarContext()
   const { isDark, toggleTheme } = useTheme()
-  const { user, organization } = mockUser
+  const { user } = mockUser
   const [isScrolled, setIsScrolled] = useState(false)
 
   useEffect(() => {
@@ -38,7 +38,7 @@ function Navbar() {
         </IconButton>
       )}
 
-      <div className="ml-auto flex items-center gap-1.5 rounded-2xl bg-bg/50 p-1 ring-1 ring-border/50">
+      <div className="ml-auto flex items-center gap-2">
         <IconButton
           label="Toggle theme"
           onClick={toggleTheme}
@@ -51,9 +51,7 @@ function Navbar() {
           )}
         </IconButton>
 
-        <span className="h-5 w-px bg-border/80" aria-hidden="true" />
-
-        <UserDropdown user={user} organization={organization} />
+        <UserDropdown user={user} />
       </div>
     </header>
   )
