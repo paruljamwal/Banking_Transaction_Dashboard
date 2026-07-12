@@ -1,11 +1,14 @@
 import PageContainer from '@components/common/PageContainer'
 import PageHeader from '@components/common/PageHeader'
 import SearchBar from '@components/common/SearchBar'
+import Card from '@components/common/Card'
+import Pagination from '@components/common/Pagination'
 import { TransactionsTable, TransactionFilters } from '@components/transactions'
 import { transactions } from '@data/transactions'
 import { TRANSACTION_SEARCH_FIELDS } from '@constants/transactionSearch'
 import { useSearch } from '@hooks/useSearch'
 import { useTransactionFilters } from '@hooks/useTransactionFilters'
+import { usePagination } from '@hooks/usePagination'
 
 function TransactionsPage() {
   const {
@@ -31,6 +34,18 @@ function TransactionsPage() {
     fields: TRANSACTION_SEARCH_FIELDS,
     debounceMs: 300,
   })
+
+  const {
+    data: paginatedTransactions,
+    page,
+    pageSize,
+    totalItems,
+    totalPages,
+    startIndex,
+    endIndex,
+    setPage,
+    setPageSize,
+  } = usePagination(results)
 
   const showNoResults = (hasQuery || isFiltered) && !hasResults
 
@@ -79,7 +94,7 @@ function TransactionsPage() {
         />
 
         <TransactionsTable
-          transactions={results}
+          transactions={paginatedTransactions}
           searchQuery={query}
           showNoResults={showNoResults}
           noResultsMessage={
@@ -88,6 +103,25 @@ function TransactionsPage() {
               : 'No transactions match the applied filters. Try adjusting your filters.'
           }
         />
+
+        {!showNoResults && totalItems > 0 && (
+          <Card padding="md">
+            <Pagination
+              currentPage={page}
+              totalPages={totalPages}
+              onPageChange={setPage}
+              totalItems={totalItems}
+              pageSize={pageSize}
+              onPageSizeChange={setPageSize}
+              startIndex={startIndex}
+              endIndex={endIndex}
+              showRowsPerPage
+              showRangeInfo
+              showGoToPage
+              showPageInfo={false}
+            />
+          </Card>
+        )}
       </div>
     </PageContainer>
   )
