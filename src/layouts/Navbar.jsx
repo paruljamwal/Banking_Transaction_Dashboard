@@ -25,7 +25,7 @@ function Navbar() {
   return (
     <header
       className={cn(
-        'sticky top-0 z-30 flex h-14 shrink-0 items-center gap-3 border-b px-4 md:px-5',
+        'sticky top-0 z-30 flex h-14 shrink-0 items-center gap-3 overflow-visible border-b px-4 md:px-5',
         'transition-all duration-300',
         isScrolled
           ? 'border-border/80 bg-navbar/90 shadow-sm backdrop-blur-md'
@@ -33,7 +33,7 @@ function Navbar() {
       )}
     >
       {!isDesktop && (
-        <IconButton label="Open menu" onClick={toggle}>
+        <IconButton label="Open menu" onClick={toggle} className="h-9 w-9 rounded-xl">
           <FiMenu className="h-5 w-5" />
         </IconButton>
       )}
@@ -52,14 +52,20 @@ function Navbar() {
         />
       </div>
 
-      <div className="ml-auto flex items-center gap-1.5">
-        <IconButton label="Toggle theme" onClick={toggleTheme}>
+      <div className="ml-auto flex items-center gap-2">
+        <IconButton
+          label="Toggle theme"
+          onClick={toggleTheme}
+          className="h-9 w-9 rounded-xl"
+        >
           {isDark ? (
             <FiSun className="h-[18px] w-[18px]" />
           ) : (
             <FiMoon className="h-[18px] w-[18px]" />
           )}
         </IconButton>
+
+        <span className="hidden h-5 w-px bg-border md:block" aria-hidden="true" />
 
         <UserDropdown user={user} />
       </div>
